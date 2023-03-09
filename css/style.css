@@ -1,16 +1,12 @@
-* {
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
-}
-
 body {
-    font-family: sans-serif;
-    background-color: lightcoral;   
+    font-family: sans-serif;  
 }
 
-.container {
-    width: 80%;
-    margin: 3rem auto;
-    text-align: center;
+.ms_container {
+    width: 70%;
+    margin: 0 auto;
+}
+
+.ms_calcola, .ms_biglietto {
+    background-color: aqua;
 }
