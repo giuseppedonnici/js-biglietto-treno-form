@@ -1,48 +1,62 @@
-const sumbitBtn = document.getElementById("submit-btn");
-sumbitBtn.addEventListener("click", function () {
-    // Prendere i valori degli inpute convertirli in numeri
+const submitBtn = document.getElementById("submit-btn");
+submitBtn.addEventListener("click", function () {
+    // Prendo gli input inseriti dall'utente
     const kmPercorsiInput = document.getElementById("km-percorsi");
     const kmPercorsi = parseInt(kmPercorsiInput.value);
 
-    const etaPasseggeroInput = document.getElementById("eta-passeggero");
-    const etaPasseggero = parseInt(etaPasseggeroInput.value);
+    const etaPasseggeroInput = document.querySelector("#eta-passeggero");
+    const etaPasseggero = etaPasseggeroInput.value;
 
-    console.log(kmPercorsi, etaPasseggero);
+    const nomePasseggeroInput = document.getElementById("nome-passeggero");
+    const nomePasseggero = nomePasseggeroInput.value;
+
+    console.log(kmPercorsi, etaPasseggero, nomePasseggero);
+
 
     // LOGICA
     // Definisco il prezzo del biglietto che sarà 0.21 * km e creo delle variabili
-    // vuote che mi serviranno solamente se l'utente inserirà valori numerici
+
     const prezzoStandard = (kmPercorsi * 0.21);
     let scontoMinori;
-    let scontoOver;
     let prezzoFinale;
     console.log(prezzoStandard);
-    // Se l'età dell'utente è < 18 
-    //     calcolo il 20% di sconto e lo sottraggo al prezzo standard del biglietto
-    if (!isNaN(kmPercorsi) && !isNaN(etaPasseggero)) {
-        if (etaPasseggero < 18) {
+    // Eseguo il calcolo solamente se l'utente mi fornisce i 3 input che ho richiesto
+    if (!isNaN(kmPercorsi) && (etaPasseggero !== 0) && (nomePasseggero !== "")) {
+        if (etaPasseggero === 2) {
+            //     calcolo il 20% di sconto e lo sottraggo al prezzo standard del biglietto solo se il passeggero è minorenne
             scontoMinori = (prezzoStandard * 0.2);
             prezzoFinale = (prezzoStandard - scontoMinori);
-            document.getElementById("result").innerHTML = `Il prezzo standard del biglietto è: ${prezzoStandard} ma siccome sei minorenne è stato applicato uno sconto del 20% quindi il costo finale del tuo biglietto è ${prezzoFinale.toFixed(2)} €`;
-            // ALTRIMENTI SE l'età è compresa tra 18 e 65
-            //     prezzo del biglietto standard
-        } else if (etaPasseggero >= 18 && etaPasseggero <= 65) {
-            prezzoFinale = prezzoStandard;
-            document.getElementById("result").innerHTML = `Il costo finale del tuo biglietto è ${prezzoFinale.toFixed(2)} €`;
-            // ALTRIMENTI
-            //     calcolo il 40% di sconto e lo sottraggi al prezzo standard del biglietto
+            document.getElementById("prezzo").innerHTML = `${prezzoFinale} €`;
+            document.getElementById("tipo-biglietto").innerHTML = "Biglietto scontato";
+            document.getElementById("pass").innerHTML = nomePasseggero;
+            const rndNumber = Math.floor(Math.random() * 10) + 1;
+            console.log(rndNumber);
+            document.getElementById("num-carrozza").innerHTML = rndNumber;
+            const rndCp = Math.floor(Math.random() * 99999) + 999;
+            console.log(rndCp);
+            document.getElementById("cp").innerHTML = rndCp;
         } else {
-            scontoOver = (prezzoStandard * 0.4);
-            prezzoFinale = (prezzoStandard - scontoOver);
-            document.getElementById("result").innerHTML = `Il prezzo standard del biglietto è: ${prezzoStandard} ma siccome hai più di 65 anni è stato applicato uno sconto del 40% quindi il costo finale del tuo biglietto è ${prezzoFinale.toFixed(2)} €`;
+            // Se il passeggero non è minorenne paga la tariffa standard
+            document.getElementById("prezzo").innerHTML = `${prezzoFinale} €`;
+            document.getElementById("tipo-biglietto").innerHTML = "Biglietto standard";
+            document.getElementById("pass").innerHTML = nomePasseggero;
+            const rndNumber = Math.floor(Math.random() * 10) + 1;
+            console.log(rndNumber);
+            document.getElementById("num-carrozza").innerHTML = rndNumber;
+            const rndCp = Math.floor(Math.random() * 99999) + 999;
+            console.log(rndCp);
+            document.getElementById("cp").innerHTML = rndCp;
         }
-        console.log(prezzoFinale.toFixed(2) + " €");
     } else {
-        document.getElementById("result").innerHTML = "Attenzione! Devi compilare entrambi i campi";
+        // Se l'utente non compila tutti e 3 i campi riceverà il messaggio di avviso
+        document.getElementById("errore").innerHTML = "Attenzione! Devi compilare tutti i campi";
     }
-    
-    // Pulisco i campi di input
-    kmPercorsiInput.value = "";
-    etaPasseggeroInput.value = "";
 });
 
+const annullationBtn = document.getElementById("annulla");
+annullationBtn.addEventListener("click", function () {
+    // Pulisco i campi di input
+    nomePasseggeroInput.value = "";
+    kmPercorsiInput.value = "";
+    etaPasseggeroInput.value = 0;
+});
